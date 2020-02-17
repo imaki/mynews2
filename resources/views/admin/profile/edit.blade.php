@@ -1,42 +1,53 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<!-- Required meta tags -->
-       <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{{-- layouts/admin.blade.phpを読み込む --}}
+@extends('layouts.admin')
 
 
+{{-- admin.blade.phpの@yield('title')に'My プロフィール'を埋め込む --}}
+@section('title', 'My プロフィール')
 
-<title>PHP</title>
-</head>
-<body>
-<header>
-<h1 class="font-weight-normal">PHP</h1>    
-</header>
+{{-- admin.blade.phpの@yield('content')に以下のタグを埋め込む --}}
+@section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h2>My プロフィール</h2>
+                <form action="{{ action('Admin\ProfileController@create') }}" method="post" enctype="multipart/form-data">
 
-<main>
-<h2>Practice</h2>
-
-<form action="submit.php" method="post">
-    <p>性別：
-        <input type="radio" name="gender" value="男性"> 男性
-        ／
-        <input type="radio" name="gender" value="女性"> 女性
-    </p>
-
-    <input type="text" name="my_name" value="初期値">
-
-    <input type="checkbox" name="agree" value="on"> 同意する
-
-    <select name="pref">
-            <option value="hokkaido">北海道</option>
-            <option value="aomori">青森県</option>
-        </select>
-
-    <input type="submit" value="送信する">
-</form>
-
-</main>
-</body>    
-</html>
+                    @if (count($errors) > 0)
+                        <ul>
+                            @foreach($errors->all() as $e)
+                                <li>{{ $e }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    <div class="form-group row">
+                        <label class="col-md-2">名前</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="title" value="{{ old('name') }}">
+                        </div>
+                    </div>
+                    <form action="submit.php" method="post">
+                    <p>性別：
+                        <input type="radio" name="gender" value="男性"> 男性
+                        ／
+                        <input type="radio" name="gender" value="女性"> 女性
+                    </p>
+                    <div class="form-group row">
+                        <label class="col-md-2">趣味</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" name="body" rows="10">{{ old('hobby') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2">自己紹介欄</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" name="body" rows="10">{{ old('body') }}</textarea>
+                        </div>
+                    </div>
+                    {{ csrf_field() }}
+                    <input type="submit" class="btn btn-primary" value="送信">
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
