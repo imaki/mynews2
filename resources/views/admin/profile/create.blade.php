@@ -1,11 +1,11 @@
-{{-- layouts/admin.blade.phpを読み込む --}}
-@extends('layouts.admin')
+{{-- layouts/profile.blade.phpを読み込む --}}
+@extends('layouts.profile')
 
 
-{{-- admin.blade.phpの@yield('title')に'My プロフィール'を埋め込む --}}
+{{-- profile.blade.phpの@yield('title')に'My プロフィール'を埋め込む --}}
 @section('title', 'My プロフィール')
 
-{{-- admin.blade.phpの@yield('content')に以下のタグを埋め込む --}}
+{{-- profile.blade.phpの@yield('content')に以下のタグを埋め込む --}}
 @section('content')
     <div class="container">
         <div class="row">
@@ -23,7 +23,7 @@
                     <div class="form-group row">
                         <label class="col-md-2">名前</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="title" value="{{ old('name') }}">
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                         </div>
                     </div>
                     <form action="submit.php" method="post">
@@ -35,13 +35,13 @@
                     <div class="form-group row">
                         <label class="col-md-2">趣味</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="body" rows="10">{{ old('hobby') }}</textarea>
+                            <textarea class="form-control" name="hobby" rows="10">{{ old('hobby') }}</textarea>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">自己紹介欄</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="body" rows="10">{{ old('body') }}</textarea>
+                            <textarea class="form-control" name="introduction" rows="10">{{ old('introduction') }}</textarea>
                         </div>
                     </div>
                     {{ csrf_field() }}

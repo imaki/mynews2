@@ -21,19 +21,11 @@ class ProfileController extends Controller
       // Varidationを行う
       $this->validate($request, Profile::$rules);
 
-      $profile = new News;
+      $profile = new Profile;
       $form = $request->all();
 
-      // formに画像があれば、保存する
-      if ($form['image']) {
-        $path = $request->file('image')->store('public/image');
-        $profile->image_path = basename($path);
-      } else {
-          $profile->image_path = null;
-      }
-
       unset($form['_token']);
-      unset($form['image']);
+      
       // データベースに保存する
       $profile->fill($form);
       $profile->save();
@@ -57,28 +49,28 @@ class ProfileController extends Controller
   public function edit(Request $request)
   {
       // News Modelからデータを取得する
-      $news = News::find($request->id);
-      if (empty($news)) {
+      $profile = Profile::find($request->id);
+      if (empty($profile)) {
         abort(404);    
       }
-      return view('admin.profile.edit', ['news_form' => $profile]);
+      return view('admin.profile.edit', ['profile_form' => $profile]);
   }
 
 
   public function update(Request $request)
   {
       // Validationをかける
-      $this->validate($request, News::$rules);
-      // News Modelからデータを取得する
-      $profile = News::find($request->id);
+      $this->validate($request, profile::$rules);
+      // Profile Modelからデータを取得する
+      $profile = Profile::find($request->id);
       // 送信されてきたフォームデータを格納する
       $profile_form = $request->all();
     //   if (isset($news_form['image'])) {
     //     $path = $request->file('image')->store('public/image');
-    //     $news->image_path = basename($path);
+    //     $profile->image_path = basename($path);
     //     unset($news_form['image']);
     //   } elseif (isset($request->remove)) {
-    //     $news->image_path = null;
+    //     $profile->image_path = null;
     //     unset($news_form['remove']);
     //   }
       
