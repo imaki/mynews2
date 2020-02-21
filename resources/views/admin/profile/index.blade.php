@@ -1,10 +1,10 @@
 @extends('layouts.admin')
-@section('title', '登録済みニュースの一覧')
+@section('title', '登録済みプロフィール')
 
 @section('content')
     <div class="container">
         <div class="row">
-            <h2>ニュース一覧</h2>
+            <h2>プロフィール一覧</h2></h2>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="admin-news col-md-12 mx-auto">
+            <div class="admin-profile col-md-12 mx-auto">
                 <div class="row">
                     <table class="table table-dark">
                         <thead>
@@ -37,18 +37,15 @@
                                 <th width="10%">操作</th>
                             </tr>
                         </thead>
-                   <tbody>
-                            @foreach($posts as $news)
+                        <tbody>
+                            @foreach($posts as $profile)
                                 <tr>
                                     <th>{{ $news->id }}</th>
-                                    <td>{{ str_limit($news->title, 100) }}</td>
-                                    <td>{{ str_limit($news->body, 250) }}</td>
+                                    <td>{{ str_limit($profile->title, 100) }}</td>
+                                    <td>{{ str_limit($profile->body, 250) }}</td>
                                     <td>
                                         <div>
-                                            <a href="{{ action('Admin\profile@edit', ['id' => $news->id]) }}">編集</a>
-                                        </div>
-                                        <div>
-                                            <a href="{{ action('Admin\profile@delete', ['id' => $news->id]) }}">削除</a>
+                                            <a href="{{ action('Admin\ProfileController@edit', ['id' => $profile->id]) }}">編集</a>
                                         </div>
                                     </td>
                                 </tr>
